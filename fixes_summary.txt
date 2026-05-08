@@ -1,0 +1,60 @@
+SUMMARY OF CODE FIXES - GLUCOTRACK APP
+
+1. CLASS NAME MISMATCH:
+   - Error: Glucosereading.java contained 'public class GlucoseReading'.
+   - Fix: Renamed class to 'Glucosereading' to match the file name for compilation.
+
+2. ROOM DATABASE ERRORS:
+   - Error: GlucoDatabase was not declared as 'abstract'.
+   - Fix: Changed to 'public abstract class GlucoDatabase'.
+   - Added: Singleton pattern (getDatabase method) to properly initialize Room.
+
+3. UI CONNECTIVITY (CLICK ACTIONS):
+   - Error: Tapping the "+" button did nothing.
+   - Fix: Added Intent logic in MainActivity.java to open AddReadingActivity.
+
+4. MISSING MANIFEST REGISTRATION:
+   - Error: AddReadingActivity was not registered.
+   - Fix: Added <activity> tag to AndroidManifest.xml to prevent "ActivityNotFound" crashes.
+
+5. IMPROPER API USAGE (THREADING):
+   - Error: Database operations were running on the Main Thread (UI Thread), which causes freezing/crashes.
+   - Fix: Moved all Save/Load operations to background threads using new Thread() and runOnUiThread().
+
+6. MEDICAL ACCURACY (AI TIPS):
+   - Error: Tips were simple if-else statements that ignored context (e.g., fasting vs. after eating).
+   - Fix: Implemented 'generateSmartTips' logic. It now checks the 'Status' field for keywords like "Fasting" or "Meal" and 'Notes' for "Exercise" or "Sick" to provide medically relevant advice.
+
+7. DATA PERSISTENCE:
+   - Error: Data was being saved but not displayed.
+   - Fix: Created GlucoseAdapter and updated MainActivity to refresh the list automatically in 'onResume()'.
+
+8. REDUNDANT CODE:
+   - Error: Redundant 'public' modifiers in GlucoseDao interface.
+   - Fix: Cleaned up interface methods to follow standard Java/Room practices.
+
+9. DELETE FEATURE:
+   - Error: No UI or logic existed to delete a reading.
+   - Fix: Added a delete (trash) icon to each item in the list, implemented a deletion callback in the Adapter, and added a confirmation dialog in MainActivity to prevent accidental deletions.
+
+10. UI & THEME OVERHAUL:
+    - App Icon: Changed to a custom vector "G" icon with Primary Green and Light Mint colors.
+    - Theme: Switched to a "Fresh & Nature-Inspired" theme using Primary Green (#5EBF95) and Light Mint (#B3F9DB).
+    - Background: Updated to a clean Light Gray (#F4F4F4) for a lifelike, healthy feel.
+    - Status Coloring: Implemented dynamic text coloring for glucose values: Green (Normal), Yellow (Low), and Red (High).
+    - Edge-to-Edge: Enabled Edge-to-Edge display and handled Window Insets to ensure the UI respects the status bar and navigation bar areas.
+
+11. FIREBASE AUTHENTICATION:
+    - Welcome Screen: Added a landing page with Login and Signup options.
+    - Signup & Login Pages: Redesigned with ScrollViews to prevent screen clipping on smaller devices.
+    - User Guidance: Added placeholders (e.g., "example@example.com") and password instructions to input fields.
+    - Signup Page: Integrated Firebase Authentication to create new accounts using email/password.
+    - Login Page: Integrated Firebase Authentication to verify credentials and navigate to the main dashboard.
+    - Logout Feature: Added a power-off icon on the main screen to sign out and return to the welcome page.
+    - Persistent Login: The app now checks if a user is already logged in on startup and skips the welcome screen if they are.
+
+12. MULTI-USER CLOUD SYNC:
+    - Firebase Realtime Database: Moved storage from local Room database to the cloud.
+    - Privacy & Isolation: Readings are now stored under a unique User ID (UID) path: `readings/{userId}/{readingKey}`. This ensures users only see their own data.
+    - Cross-Device Sync: Since data is stored in the cloud, users can log in on any phone and access their personal history.
+    - Real-time Updates: The main list now updates automatically as soon as a reading is added or deleted.

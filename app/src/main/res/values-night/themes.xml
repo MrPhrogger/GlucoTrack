@@ -1,0 +1,9 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Use the same fresh palette for "night" to avoid the black background -->
+    <style name="Base.Theme.GlucoTrack" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary_green</item>
+        <item name="colorSecondary">@color/light_mint</item>
+        <item name="android:windowBackground">@color/light_gray</item>
+        <item name="android:textColor">@color/app_text</item>
+    </style>
+</resources>

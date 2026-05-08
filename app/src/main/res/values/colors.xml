@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary_green">#5EBF95</color>
+    <color name="light_mint">#B3F9DB</color>
+    <color name="dark_green">#3C8571</color>
+    <color name="light_gray">#F4F4F4</color>
+    <color name="app_text">#333333</color>
+
+    <color name="status_red">#FF5252</color>
+    <color name="status_yellow">#FFB300</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+</resources>
